@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The State of Quantum Report</title>
+<link rel="icon" href="favicon.ico" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -362,9 +363,9 @@ sup{font-size:0.5rem;color:var(--ink3);vertical-align:super;}
 .fn-col{}
 .fn-label{font-size:0.5rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px;}
 .fn-list{list-style:none;}
-.fn-list li{display:grid;grid-template-columns:16px 1fr;gap:10px;font-size:0.57rem;font-weight:300;color:var(--ink3);line-height:1.72;padding:5px 0;border-bottom:1px solid var(--rule);}
+.fn-list li{display:grid;grid-template-columns:16px 1fr;gap:10px;font-size:0.57rem;font-weight:300;color:var(--ink2);line-height:1.72;padding:5px 0;border-bottom:1px solid var(--rule);}
 .fn-i{font-family:'Helvetica Neue',Helvetica,sans-serif;font-style:normal;font-weight:300;}
-.closing{margin-top:28px;padding-top:20px;border-top:1px solid var(--rule);font-size:0.54rem;font-weight:300;color:var(--ink3);line-height:1.9;}
+.closing{margin-top:28px;padding-top:20px;border-top:1px solid var(--rule);font-size:0.54rem;font-weight:300;color:var(--ink2);line-height:1.9;}
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
@@ -817,11 +818,165 @@ sup{font-size:0.5rem;color:var(--ink3);vertical-align:super;}
   max-width: 640px;
   width: 100%;
 }
+
+/* nav-mob-contents hidden on desktop */
+.nav-mob-contents { display:none; }
+
+/* ══════════════════════════════════════════
+   MOBILE-ONLY ADDITIONS — max-width: 768px
+   Desktop untouched above this line
+   ══════════════════════════════════════════ */
+@media(max-width:768px){
+
+  /* 1. NAV — Contents + on left, theme toggle on right */
+  .nav { justify-content: space-between; }
+  .nav-title { display:none; }
+  .nav-mob-contents {
+    display:block;
+    font-family:'Helvetica Neue',Helvetica,sans-serif;
+    font-size:0.78rem;font-weight:400;color:var(--ink);
+    background:none;border:none;cursor:pointer;padding:0;
+    letter-spacing:0.01em;white-space:nowrap;
+    transition:opacity 0.15s;
+  }
+  .nav-mob-contents:hover { opacity:0.5; }
+
+  /* 2. Hide cover-left metadata column */
+  .cover-left { display:none !important; }
+
+  /* Cover takes full width, text fills container */
+  .cover { grid-template-columns:1fr !important; min-height:auto; }
+  .cover-inner { max-width:100% !important; padding:40px 24px 40px !important; }
+
+  /* 3. Drawer slides in from LEFT */
+  .toc-drawer {
+    left:0 !important;
+    right:auto !important;
+    transform:translateX(-100%) !important;
+    width:85% !important;
+    max-width:320px !important;
+    border-left:none !important;
+    border-right:1px solid var(--rule) !important;
+  }
+  .toc-drawer.open { transform:translateX(0) !important; }
+
+  /* 4. g211 third block spans full width */
+  .cb-grid.g211 { grid-template-columns:1fr 1fr !important; }
+  .cb-grid.g211 > *:nth-child(3) { grid-column:1 / -1; }
+
+
+  /* 5. Bibliography — handled in FIX 6 below */
+
+  /* Increased font sizes */
+  .h-section { font-size:1.6rem !important; }
+  .h-sub { font-size:1rem !important; }
+  .lede { font-size:1rem !important; }
+  p { font-size:0.92rem !important; line-height:1.9 !important; }
+  .sc-body { font-size:0.88rem !important; }
+  .pq-text { font-size:0.96rem !important; }
+
+  /* FIX 1. Nav — vertical divider full height edge-to-edge, theme btn centred */
+  .nav-mob-contents {
+    padding:0 14px 0 0;
+    border-right:1px solid var(--rule);
+    margin-right:0;
+    /* stretch to full nav height */
+    height:100%;
+    display:flex;
+    align-items:center;
+  }
+  /* theme-btn: override fixed positioning, centre in nav flow */
+  .theme-btn {
+    position:static !important;
+    top:auto !important;
+    right:auto !important;
+    z-index:auto !important;
+  }
+  .nav {
+    padding-left:0 !important;
+    padding-right:16px !important;
+    gap:0;
+  }
+  /* Contents + button sits flush left inside nav */
+  .nav-mob-contents {
+    padding:0 16px;
+  }
+
+  /* FIX 2. Hero title bigger on mobile */
+  .cover-h1 { font-size: clamp(2.6rem, 10vw, 3.4rem) !important; }
+
+  /* FIX 3. Section label rows */
+  .s-left-title { display:none !important; }
+  .s-left-num { font-size:0.58rem !important; }
+  .s-left { padding:16px 20px !important; }
+  .s-left-inner { display:flex; align-items:center; gap:8px; }
+
+  /* FIX 4. g3 and g211 — third box fills full width */
+  .cb-grid.g3 { grid-template-columns:1fr 1fr !important; }
+  .cb-grid.g3 > *:nth-child(3) { grid-column:1 / -1; }
+  .cb-grid.g211 { grid-template-columns:1fr 1fr !important; }
+  .cb-grid.g211 > *:nth-child(3) { grid-column:1 / -1; }
+
+  /* FIX 5. Section 5 scenarios — top-aligned, tight gap, no dark borders */
+  .scenario {
+    grid-template-columns:20px 1fr !important;
+    gap:10px !important;
+    align-items:start !important;
+    border-top:none !important;
+    border-bottom:1px solid var(--rule) !important;
+    padding:18px 0 !important;
+  }
+  .scenario:first-child { border-top:none !important; }
+  .scenario:last-child { border-bottom:none !important; }
+  .sc-id { padding-top:3px !important; line-height:1 !important; }
+  .sc-name { margin-bottom:2px !important; }
+
+  /* FIX 6. Bibliography — flush left, 8px left padding */
+  .footnotes.s-shell { display:block !important; }
+  .footnotes .s-left { display:none !important; }
+  /* Kill the footer's own padding that shifts content right */
+  footer#bibliography,
+  footer.footnotes { padding:0 !important; }
+  #bibliography .fn-col,
+  .footnotes .fn-col,
+  .footnotes > .fn-col {
+    padding:36px 16px 64px 16px !important;
+    max-width:100% !important;
+    width:100% !important;
+    margin:0 !important;
+    box-sizing:border-box !important;
+  }
+  #bibliography .fn-label,
+  .footnotes .fn-label {
+    font-family:'PT Serif',Georgia,serif;
+    font-size:1.1rem;font-weight:400;
+    letter-spacing:0;text-transform:none;
+    color:var(--ink);
+    border-bottom:1px solid var(--rule);
+    padding-bottom:14px;margin-bottom:18px;
+    width:100%;display:block;
+  }
+  #bibliography .fn-list,
+  .footnotes .fn-list { padding-left:0 !important; margin-left:0 !important; }
+  #bibliography .fn-list li,
+  .footnotes .fn-list li {
+    text-align:left !important;
+    border-bottom:none !important;
+    padding:6px 0 !important;
+    font-size:0.78rem !important;
+    line-height:1.75 !important;
+  }
+  #bibliography .fn-i,
+  .footnotes .fn-i { font-size:0.72rem !important; }
+  #bibliography .closing,
+  .footnotes .closing { text-align:left !important; font-size:0.68rem !important; }
+}
 </style>
 </head>
 <body>
 
 <nav class="nav">
+  <button class="nav-mob-contents" onclick="openToc()" aria-label="Open contents">Contents +</button>
   <span class="nav-title">The State of Quantum Report</span>
   <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
     <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
@@ -848,14 +1003,8 @@ sup{font-size:0.5rem;color:var(--ink3);vertical-align:super;}
     <a class="toc-section-link" href="#cover" onclick="closeToc()">Introduction</a>
   </div>
 
-  <div class="toc-section toc-accordion open">
-    <button class="toc-acc-btn" onclick="toggleAcc(this)">
-      <span>Executive Summary</span>
-      <svg class="toc-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-    <ul class="toc-chapters">
-      <li><a class="toc-chapter-link" href="#findings" onclick="closeToc()">Executive Summary</a></li>
-    </ul>
+  <div class="toc-section toc-flat">
+    <a class="toc-section-link" href="#findings" onclick="closeToc()">Executive Summary</a>
   </div>
 
   <div class="toc-section toc-accordion">
@@ -937,6 +1086,9 @@ sup{font-size:0.5rem;color:var(--ink3);vertical-align:super;}
     <a class="toc-section-link" href="#bibliography" onclick="closeToc()">Bibliography</a>
   </div>
 </div>
+
+<!-- Mobile TOC overlay -->
+<div id="tocOverlay" onclick="closeToc()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:249;opacity:0;transition:opacity 0.28s ease;pointer-events:none;"></div>
 
 <div class="page">
 
@@ -1496,7 +1648,10 @@ function toggleTheme(){
 // TOC drawer
 function openToc(){
   document.getElementById('tocDrawer').classList.add('open');
-  document.querySelector('.contents-strip').classList.add('hidden');
+  var strip = document.querySelector('.contents-strip');
+  if(strip) strip.classList.add('hidden');
+  var ov = document.getElementById('tocOverlay');
+  if(ov){ ov.style.display='block'; setTimeout(function(){ov.style.opacity='1';ov.style.pointerEvents='all';},10); }
 }
 function toggleAcc(btn){
   const section = btn.closest('.toc-accordion');
@@ -1504,7 +1659,10 @@ function toggleAcc(btn){
 }
 function closeToc(){
   document.getElementById('tocDrawer').classList.remove('open');
-  document.querySelector('.contents-strip').classList.remove('hidden');
+  var strip = document.querySelector('.contents-strip');
+  if(strip) strip.classList.remove('hidden');
+  var ov = document.getElementById('tocOverlay');
+  if(ov){ ov.style.opacity='0'; ov.style.pointerEvents='none'; setTimeout(function(){ov.style.display='none';},280); }
 }
 
 // Close drawer on TOC link click
